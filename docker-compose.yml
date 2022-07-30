@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  #PHP Service
+  app:
+    build:
+      context: ./
+      dockerfile: "./docker-services/php/Dockerfile"
+    container_name: leaseweb_app
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./backend/:/var/www
+      - ./docker-services/php/local.ini:/usr/etc/php/conf.d/local.ini
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    networks:
+      - app-network
+
+  #Nginx Service
+  nginx:
+    build: ./docker-services/nginx
+    container_name: leaseweb_nginx
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./backend/:/var/www
+      - ./docker-services/nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - "81:80"
+      - "444:443"
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local
