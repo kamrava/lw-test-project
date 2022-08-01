@@ -1,8 +1,10 @@
 <template>
   <div class="q-ma-none">
-    <q-list class="q-gutter-md" style="">
-      <q-spinner-dots v-if="serverStore.loading" color="primary" size="2em" />
-      <q-item-label v-else header>
+    <div class="row flex flex-center" style="height: 100px" v-if="serverStore.loading">
+      <q-spinner-dots class="q-mt-lg" color="primary" size="2em" />
+    </div>
+    <q-list class="q-gutter-md" v-else>
+      <q-item-label header>
         {{ serverStore.servers.length }} results
       </q-item-label>
       <ServerBox
@@ -16,21 +18,11 @@
 <script setup>
 import { ref } from "vue";
 import ServerBox from "./ServerBox.vue";
-import ServerModel from "../../models/Server";
 import { useServerStore } from "../../store";
-import { getCurrentInstance } from "vue";
 
 const serverStore = useServerStore();
 serverStore.getServers();
 
-const app = getCurrentInstance();
-
-console.log(
-  app.appContext.config.globalProperties.$helpers._isEqual(
-    { id: 1, name: "HAMED", items: {key:"item"}, children: [1,2]},
-    { id: 1, name: "HAMED", children: [1,2], items: {key:"item"}},
-  )
-);
 </script>
 
 <style lang="sass">

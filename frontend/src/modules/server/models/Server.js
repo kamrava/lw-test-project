@@ -13,6 +13,10 @@ class Server extends Form {
     return new Form().get('servers').then(then)
   }
 
+  static filters(then) {
+    return new Form().get('servers/filters').then(then)
+  }
+
   create(then) {
     return super.post('servers').then(then)
   }

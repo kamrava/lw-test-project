@@ -52,6 +52,8 @@ For front-end side I recommend to run it outside of Docker.
 Just go to `frontend` directory and run `yarn` as below:
 ```
 $ cd frontend && yarn
+
+$ quasar dev
 ```
 
 There we go!

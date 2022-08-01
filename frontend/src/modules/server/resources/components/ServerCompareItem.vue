@@ -56,7 +56,6 @@ const props = defineProps({
   server: Object,
 });
 
-// const { item } = toRefs(props);
 </script>
 
 <style lang="sass" scoped>

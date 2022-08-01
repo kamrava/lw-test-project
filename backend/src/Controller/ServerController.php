@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ServerModel;
 use App\Response\Responder;
 use App\Services\Excel\Import\ImportServers;
 use App\Transformer\ServerTransformer;
@@ -17,13 +18,24 @@ class ServerController extends AbstractController
      */
     public function index(): JsonResponse
     {
-        $servers = ImportServers::getRows(2, 10);
+        $server = new ServerModel();
+
+        $servers = $server->paginate(10, 1);
 
         $resource = UseTransformer::apply($servers, new ServerTransformer);
 
         $severs = $resource->toArray();
 
         return Responder::success($severs);
+    }
+
+    /**
+     * @Route("/servers/filters", name="servers.filters", methods={"GET"})
+     */
+    public function getFilters(): JsonResponse
+    {
+        $filters = (new ServerModel)->getFilters();
+        return Responder::success($filters);
     }
 
 }
