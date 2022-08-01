@@ -19,7 +19,8 @@ class ServerFilterTransformer extends TransformerAbstract
     public function transform($filter)
     {
         if($filter[0] == 'Location') {
-            $values = $this->locations;
+            $resource = UseTransformer::apply($this->locations, new LocationsTransformer);
+            $values = $resource->toArray()['data'];
         } else {
             $values = explode(',', str_replace(' ', '', $filter[2]));
         }

@@ -13,6 +13,15 @@
         :key="server.model"
       />
     </q-list>
+    <div v-if="serverStore.servers.length" class="flex flex-center q-ma-xl">
+      <q-pagination
+        v-model="current"
+        color="black"
+        :max="10"
+        :max-pages="6"
+        :boundary-numbers="false"
+      />
+    </div>
   </div>
 </template>
 <script setup>
@@ -22,6 +31,8 @@ import { useServerStore } from "../../store";
 
 const serverStore = useServerStore();
 serverStore.getServers();
+
+const current = ref(1);
 
 </script>
 

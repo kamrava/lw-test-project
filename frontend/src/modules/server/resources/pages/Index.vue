@@ -12,7 +12,7 @@
           v-model="serverStore.filters.locations"
           text-color="dark"
           color="grey-3"
-          :options="options"
+          :options="serverStore.availableFilters[3].values"
         />
       </div>
     </div>
@@ -36,14 +36,6 @@ import ServersList from "../components/List.vue";
 import { useServerStore } from "../../store";
 
 const serverStore = useServerStore();
-
-// Computed
-const options = computed(() =>
-  serverStore.availableFilters[3].values.map((item) => {
-    return { label: item, value: item };
-  })
-);
-
 </script>
 <style lang="sass" scoped>
 .section-title,

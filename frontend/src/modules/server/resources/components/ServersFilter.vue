@@ -2,7 +2,11 @@
   <div class="q-ma-none">
     <q-list separator>
       <q-item-label class="bg-grey-1" header>Filters
-        <q-btn v-if="hasFilters" @click="serverStore.clearFilters" size="sm" color="red" flat label="Clear Filters" icon="fal fa-close" />
+        <!-- <q-btn v-if="hasFilters" @click="serverStore.clearFilters" size="sm" color="red" flat label="Clear Filters" icon="fal fa-close" /> -->
+        <q-badge v-if="hasFilters" @click="serverStore.clearFilters" outline color="orange" style="cursor: pointer;">
+            <q-icon name="far fa-close" color="orange" />
+            <span>Clear Filters</span>
+        </q-badge>
       </q-item-label>
       <ServerInputSliderFilter v-if="serverStore.availableFilters.length" />
       <ServerCheckboxFilter v-if="serverStore.availableFilters.length" :filter="serverStore.availableFilters[1]" />

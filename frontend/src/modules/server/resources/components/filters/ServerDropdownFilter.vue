@@ -13,7 +13,7 @@
           filled
           v-model="serverStore.filters.locations"
           label="Select Location"
-          :options="options"
+          :options="filter.values"
         />
       </q-card-section>
     </q-card>
@@ -28,12 +28,5 @@ const serverStore = useServerStore();
 const props = defineProps({
   filter: Object,
 });
-
-// Computed
-const options = computed(() =>
-  props.filter.values.map((item) => {
-    return { label: item, value: item };
-  })
-);
 
 </script>
