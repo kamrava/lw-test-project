@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from "vue";
+import { computed } from "vue";
 import { useServerStore } from "../../../store";
 
 const serverStore = useServerStore();
@@ -29,32 +29,27 @@ const props = defineProps({
   filter: Object,
 });
 
-const checkboxModel = ref([]);
-
 // Computed
 const options = computed(() =>
-  props.filter.values.map( (item) => {
-    return {label: item, value: item}
+  props.filter.values.map((item) => {
+    return { label: item, value: item };
   })
 );
 
-// Watch
-watch( () => checkboxModel.value, (val) => {
-    if(props.filter.name === 'Harddisk type') {
-      serverStore.filters.diskType = val;
-    } else if(props.filter.name === 'Ram') {
-      serverStore.filters.ram = val;
+const checkboxModel = computed({
+  get() {
+    if (props.filter.name === "Ram") {
+      return serverStore.filters.ram;
+    } else {
+      return serverStore.filters.diskType;
     }
-  }
-)
-
-// Mounted
-onMounted(() => {
-  if(props.filter.name === 'Harddisk type') {
-    checkboxModel.value = serverStore.filters.diskType
-    } else if(props.filter.name === 'Ram') {
-      checkboxModel.value = serverStore.filters.ram
+  },
+  set(value) {
+    if (props.filter.name === "Ram") {
+      serverStore.filters.ram = value;
+    } else {
+      serverStore.filters.diskType = value;
     }
+  },
 });
 </script>
-
